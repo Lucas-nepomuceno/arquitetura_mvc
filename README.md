@@ -5,7 +5,7 @@
 - <b> Ferramenta de Diagramação: </b> draw.io
 ## Modelos (Models):
 
-&nbsp;&nbsp;&nbsp;&nbsp; O modelo deste projeto é composto de três entidades principais: administradores, montadores e manuais. O primeiro é composto pelos seguintes atributos: CPF (chave-primária); nome; equipe. Já o segundo é composto pelos seguintes atributos: CPF (chave-primária); nome; equipe. Enquanto isso, o último é composto pelos seguintes atributos: id (chave primária), nome, ultima_atualizacao, URL. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; O modelo deste projeto é composto de três entidades principais: administradores, montadores e manuais. O primeiro é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Já o segundo é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Enquanto isso, o último é composto pelos seguintes atributos: id (chave primária), nome, ultima_atualizacao, URL. <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Entre si, esses atributos estabelecem o relacionamento de "leitura", segundo o seguinte modelo conceitual:
 
 <div align="center">
@@ -58,9 +58,20 @@
   - Ações: Pedir ao model para consultar a URL sob o registro id_manual
   - View: N/A
 
+&nbsp;&nbsp;&nbsp;&nbsp; Além disso, ambos os usuários terão acesso ao seguinte controller:
+- Logar: permite logar na aplicação
+  - Parâmetros de entrada: CPF e senha
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para consultar o registro do CPF e checar a senha nas tabelas "montadores" e "administradores"
+  - View: atualiza a view, redirecionando o usuário a seu respectivo dashboard
+
 ## Views (Views):
 
-
+&nbsp;&nbsp;&nbsp;&nbsp; As views, ou seja, as interfaces as quais os usuários irão interagir são:
+- Login: permitirá o usuário logar na aplicação;
+- Dashboard do administrador: permitirá o administrador delegar e retirar manuais da lista de leitura de seus funcionários e ver o desempenho deles;
+- Dashboard do montador: permitirá o montador ver sua lista de leitura, checar as leituras já feitas e acessar os manuais;
+- Repositório de manuais: permitirá ao administrador adicionar e atualizar manuais
 
 ## Infraestrutura:
 Descreva os componentes de infraestrutura do seu projeto, como bancos de dados, APIs externas e outras dependências.
