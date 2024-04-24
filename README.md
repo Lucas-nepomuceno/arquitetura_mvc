@@ -16,14 +16,52 @@
 <sup>Material produzido pelos autores (2024)</sup>
 </div>
 
-&nbsp;&nbsp;&nbsp;&nbsp; Para facilitar a aplicação, optou-se por transformar o relacionamento "leitura" em uma tabela por associação. Isso é aconselhável dado a cardinalidade entre as tabelas e o relacionamento (muitos para muitos). Portanto, transformou-se leitura em uma tabela cujos atributos são: id_delegacao (chave primária), CPF_administrador (chave estrangeira), CPF_montador (chave estrangeira), id_manual (chave estrangeira). 
+&nbsp;&nbsp;&nbsp;&nbsp; Para facilitar a aplicação, optou-se por transformar o relacionamento "leitura" em uma tabela por associação. Isso é aconselhável dado a cardinalidade entre as tabelas e o relacionamento (muitos para muitos). Portanto, transformou-se leitura em uma tabela cujos atributos são: id_delegacao (chave primária), CPF_administrador (chave estrangeira), CPF_montador (chave estrangeira), id_manual (chave estrangeira), finalizado. 
 
 ## Controladores (Controllers):
-Liste os controladores do seu projeto e suas responsabilidades.
-Descreva as ações (methods) de cada controlador e seus parâmetros de entrada e saída.
-Explique como os controladores interagem com os modelos e views.
+
+&nbsp;&nbsp;&nbsp;&nbsp; Nesta aplicação, os usuários serão divididos em administradores e montadores. Os administradores têm acesso aos seguintes controladores:
+- Adicionar_manual: adicionar um manual à lista de manuais
+  - Parâmetros de entrada: nome, data, URL
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para adicionar um registro a tabela "manuais"
+  - View: altera o repositório de manuais, adicionando um manual
+
+- Atualizar_manual: atualiza um manual já criado
+  - Parâmetros de entrada: id_manual, data, URL, descricao
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para alterar um registro da tabela "manuais"
+  - View: altera o repositório de manuais, atualizando-o; adiciona uma descrição da atualização aos funcionários que tinham o manual na sua lista de leitura e altera o dashboard do funcionário atualizando a leitura
+  
+- Delegar: delegar uma leitura a um montador
+  - Parâmetros de entrada: CPF_administrador, CPF_montador, id_manual
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para adicionar um registro a tabela "leitura"
+  - View: altera o dashboard do funcionário, adicionando a leitura; altera a dashboard do administrador
+
+- Retirar: retirar uma leitura a um montador
+  -  Parâmetros de entrada: id_delegacao
+  -  Parâmetros de saída: N/A
+  -  Ações: Pedir ao model para retirar um registro da tabela "leitura"
+  -  View: altera o dashboard do funcionário, retirando a leitura; altera a dashboard do administrador
+ 
+&nbsp;&nbsp;&nbsp;&nbsp; Já os montadores têm acesso aos seguintes controllers:
+- Checar: dá um "check" no manual
+  - Parâmetros de entrada: id_delegação
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para alterar o registro sob id_delegacao da tabela leitura, setando o atributo finalizado como verdadeiro
+  - View: altera a dashboard do funcionário, "riscando" a tarefa da lista; altera o dashboard do administrador
+  
+- Ler: possibilita a leitura do manual
+  - Parâmetros de entrada: id_delegação, id_manual
+  - Parâmetros de saída: URL
+  - Ações: Pedir ao model para consultar a URL sob o registro id_manual
+  - View: N/A
+
 ## Views (Views):
-Liste as views do seu projeto e sua função.
+
+
+
 ## Infraestrutura:
 Descreva os componentes de infraestrutura do seu projeto, como bancos de dados, APIs externas e outras dependências.
 Explique como a infraestrutura se integra à arquitetura MVC.
