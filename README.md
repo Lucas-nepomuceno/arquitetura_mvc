@@ -16,12 +16,12 @@
 <sup>Material produzido pelos autores (2024)</sup>
 </div>
 
-&nbsp;&nbsp;&nbsp;&nbsp; Para facilitar a aplicação, optou-se por transformar o relacionamento "leitura" em uma tabela por associação. Isso é aconselhável dado a cardinalidade entre as tabelas e o relacionamento (muitos para muitos). Portanto, transformou-se leitura em uma tabela cujos atributos são: id_delegacao (chave primária), CPF_administrador (chave estrangeira), CPF_montador (chave estrangeira), id_manual (chave estrangeira), finalizado. 
+&nbsp;&nbsp;&nbsp;&nbsp; Porém, para facilitar a aplicação, optou-se por transformar o relacionamento "leitura" em uma tabela por associação. Isso é aconselhável dado a cardinalidade entre as tabelas e o relacionamento (muitos para muitos). Portanto, transformou-se leitura em uma tabela cujos atributos são: id_delegacao (chave primária), CPF_administrador (chave estrangeira), CPF_montador (chave estrangeira), id_manual (chave estrangeira), finalizado. 
 
 ## Controladores (Controllers):
 
 &nbsp;&nbsp;&nbsp;&nbsp; Nesta aplicação, os usuários serão divididos em administradores e montadores. Os administradores têm acesso aos seguintes controladores:
-- Adicionar_manual: adicionar um manual à lista de manuais
+- Adicionar_manual: adiciona um manual à lista de manuais
   - Parâmetros de entrada: nome, data, URL
   - Parâmetros de saída: N/A
   - Ações: Pedir ao model para adicionar um registro a tabela "manuais"
@@ -33,17 +33,17 @@
   - Ações: Pedir ao model para alterar um registro da tabela "manuais"
   - View: altera o repositório de manuais, atualizando-o; adiciona uma descrição da atualização aos funcionários que tinham o manual na sua lista de leitura e altera o dashboard do funcionário atualizando a leitura
   
-- Delegar: delegar uma leitura a um montador
+- Delegar: delega uma leitura a um montador
   - Parâmetros de entrada: CPF_administrador, CPF_montador, id_manual
   - Parâmetros de saída: N/A
   - Ações: Pedir ao model para adicionar um registro a tabela "leitura"
   - View: altera o dashboard do funcionário, adicionando a leitura; altera a dashboard do administrador
 
-- Retirar: retirar uma leitura a um montador
-  -  Parâmetros de entrada: id_delegacao
-  -  Parâmetros de saída: N/A
-  -  Ações: Pedir ao model para retirar um registro da tabela "leitura"
-  -  View: altera o dashboard do funcionário, retirando a leitura; altera a dashboard do administrador
+- Ver_funcionario: possibilita a visualização dos dados de um funcionário
+  - Parâmetros de entrada: CPF_montador
+  - Parâmetros de saída: nome_montador, equipe
+  - Ações: Pedir ao model para consultar os dados de um montador sob o registro CPF_montador
+  - View: Abre uma aba com os dados do funcionário 
  
 &nbsp;&nbsp;&nbsp;&nbsp; Já os montadores têm acesso aos seguintes controllers:
 - Checar: dá um "check" no manual
