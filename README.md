@@ -4,14 +4,6 @@
 - <b> Arquitetura: </b> MVC (Model-View-Controller)
 - <b> Ferramenta de Diagramação: </b> draw.io
 
-<div align="center">
-<sub>Figura 1 - Arquitetura MVC</sub> <br>
-  
-<img width="720"  src="assets/arquitetura-mvc.png">
-
-<sup>Material produzido pelos autores (2024)</sup>
-</div>
-
 ## Modelos (Models):
 
 &nbsp;&nbsp;&nbsp;&nbsp; O modelo deste projeto é composto de três entidades principais: administradores, montadores e manuais. O primeiro é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Já o segundo é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Enquanto isso, o último é composto pelos seguintes atributos: id (chave primária), nome, ultima_atualizacao, URL. <br>
