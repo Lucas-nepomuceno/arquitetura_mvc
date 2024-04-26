@@ -3,13 +3,22 @@
 - <b> Descrição: </b> Trata-se de uma aplicação web que será desenvolvida para a empresa Dell Technologies voltada a resolver o problema das pausas na linha de produção. Para tanto, disponibilizar-se-á, por meio da ação dos administradores, os manuais necessários para a linha de produção individualmente a cada montador da fábrica. Além disso, os montadores terão a chance de checar os manuais que já leram e os administradores verão o desempenho dos montadores em relação a leitura dos manuais.
 - <b> Arquitetura: </b> MVC (Model-View-Controller)
 - <b> Ferramenta de Diagramação: </b> draw.io
+
+<div align="center">
+<sub>Figura 1 - Arquitetura MVC</sub> <br>
+  
+<img width="720"  src="assets/arquitetura-mvc.png">
+
+<sup>Material produzido pelos autores (2024)</sup>
+</div>
+
 ## Modelos (Models):
 
 &nbsp;&nbsp;&nbsp;&nbsp; O modelo deste projeto é composto de três entidades principais: administradores, montadores e manuais. O primeiro é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Já o segundo é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Enquanto isso, o último é composto pelos seguintes atributos: id (chave primária), nome, ultima_atualizacao, URL. <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Entre si, esses atributos estabelecem o relacionamento de "leitura", segundo o seguinte modelo conceitual:
 
 <div align="center">
-<sub>Figura 1 - Modelo conceitual</sub> <br>
+<sub>Figura 2 - Modelo conceitual</sub> <br>
   
 <img width="720" alt="modelo-conceitural-bd" src="https://github.com/Lucas-nepomuceno/arquitetura_mvc/assets/158762017/75fc6f73-9db1-49f5-bad4-4ea6e6f0b7de">
 
