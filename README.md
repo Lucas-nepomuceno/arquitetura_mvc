@@ -37,7 +37,7 @@
   - Parâmetros de entrada: CPF_administrador, CPF_montador, id_manual
   - Parâmetros de saída: N/A
   - Ações: Pedir ao model para adicionar um registro a tabela "leitura"
-  - View: altera o dashboard do funcionário, adicionando a leitura; altera a dashboard do administrador
+  - View: altera o dashboard do montador, adicionando a leitura; altera a dashboard do administrador com novas informações
 
 - Ver_funcionario: possibilita a visualização dos dados de um funcionário
   - Parâmetros de entrada: CPF_montador
@@ -50,7 +50,7 @@
   - Parâmetros de entrada: id_delegação
   - Parâmetros de saída: N/A
   - Ações: Pedir ao model para alterar o registro sob id_delegacao da tabela leitura, setando o atributo finalizado como verdadeiro
-  - View: altera a dashboard do funcionário, "riscando" a tarefa da lista; altera o dashboard do administrador
+  - View: altera a dashboard do funcionário, "riscando" a tarefa da lista; altera o dashboard do administrador com novas informações
   
 - Ler: possibilita a leitura do manual
   - Parâmetros de entrada: id_delegação, id_manual
@@ -69,7 +69,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp; As views, ou seja, as interfaces as quais os usuários irão interagir são:
 - Login: permitirá o usuário logar na aplicação;
-- Dashboard do administrador: permitirá o administrador delegar e retirar manuais da lista de leitura de seus funcionários e ver o desempenho deles;
+- Dashboard do administrador: permitirá o administrador delegar manuais da lista de leitura de seus funcionários e ver o desempenho deles;
 - Dashboard do montador: permitirá o montador ver sua lista de leitura, checar as leituras já feitas e acessar os manuais;
 - Repositório de manuais: permitirá ao administrador adicionar e atualizar manuais
 
