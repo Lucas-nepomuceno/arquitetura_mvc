@@ -92,7 +92,7 @@
 - Logar: permite logar na aplicação
   - Parâmetros de entrada: emails e password 
   - Parâmetros de saída: N/A
-  - Ações: Pedir ao model para consultar o registro e <i>emails </i> e checar a senha nas tabelas <code> worker </code> e <code> engineers </code>
+  - Ações: Pedir ao model para consultar o registro e <i>emails </i> e checar a senha nas tabelas <code> workers </code> e <code> engineers </code>
   - View: atualiza a view, redirecionando o usuário a seu respectivo interface
 
 ## Views (Views):
