@@ -17,7 +17,7 @@
 <div align="center">
 <sub>Figura 2 - Modelo conceitual</sub> <br>
   
-<img width="720" alt="modelo-conceitural-bd" src="../assets/modelo-conceitual.png">
+<img width="720" alt="modelo-conceitural-bd" src="/assets/modelo-conceitual.png">
 
 <sup>Material produzido pelos autores (2024)</sup>
 </div>
