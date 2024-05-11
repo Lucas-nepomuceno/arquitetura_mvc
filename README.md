@@ -1,4 +1,4 @@
-# MVC - LedTech/Dell
+# MVC - lLedTech/Dell
 - <b> Nome do Projeto: </b> DellAware
 - <b> Descrição: </b> Trata-se de uma aplicação web que será desenvolvida para a empresa Dell Technologies voltada a resolver o problema das pausas na linha de produção. Para tanto, disponibilizar-se-á, por meio da ação dos administradores, os manuais necessários para a linha de produção individualmente a cada montador da fábrica. Além disso, os montadores terão a chance de checar os manuais que já leram e os administradores verão o desempenho dos montadores em relação a leitura dos manuais.
 - <b> Arquitetura: </b> MVC (Model-View-Controller)
