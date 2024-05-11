@@ -6,73 +6,103 @@
 
 ## Modelos (Models):
 
-&nbsp;&nbsp;&nbsp;&nbsp; O modelo deste projeto é composto de três entidades principais: administradores, montadores e manuais. O primeiro é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Já o segundo é composto pelos seguintes atributos: CPF (chave-primária), nome, equipe, senha. Enquanto isso, o último é composto pelos seguintes atributos: id (chave primária), nome, ultima_atualizacao, URL. <br>
-&nbsp;&nbsp;&nbsp;&nbsp; Entre si, esses atributos estabelecem o relacionamento de "leitura", segundo o seguinte modelo conceitual:
+&nbsp;&nbsp;&nbsp;&nbsp; Os modelos desse projeto apresentam 3 tabelas independentes: <code> engineers </code>, <code> workers </code> e <code> manuals </code>. Uma tabela dependente <code> files </code> e uma tabela por associação <code> delegations </code>. Respectivamente, seus atributos são:
+- <code> engineers </code>: id, registrations, names, emails, birthdays, actives;
+- <code> workers </code>: id, registrations, names, emails, birthdays, lines, actives;
+- <code> manuals </code>: id, names, categories, sub_categories1, sub_categories2, sub_categories3, sub_categories4, sub_categories5, update_descriptions, actives;
+- <code> files </code>: id, manuals_id, types, url;
+- <code> delegations </code>: id, engineers_id, workers_id, manuals_id, doing, done
+&nbsp;&nbsp;&nbsp;&nbsp; Em relação às tabelas com chaves estrangeiras, espera-se que <code> enginners </code> tenha o relacionamento de delegar com <code> delegations </code> e <code>workers</code> e <code>manuals</code> tenham a relação de delegação com a mesma. Além disso, espera-se que <code> manuals </code> contenham <code> files </code>, ou seja, cada file tenha uma correspondência em um manual. Estes relacionamentos estão expostos no seguinte modelo conceitual:
 
 <div align="center">
 <sub>Figura 2 - Modelo conceitual</sub> <br>
   
-<img width="720" alt="modelo-conceitural-bd" src="https://github.com/Lucas-nepomuceno/arquitetura_mvc/assets/158762017/75fc6f73-9db1-49f5-bad4-4ea6e6f0b7de">
+<img width="720" alt="modelo-conceitural-bd" src="../assets/modelo-conceitual.png">
 
 <sup>Material produzido pelos autores (2024)</sup>
 </div>
 
-&nbsp;&nbsp;&nbsp;&nbsp; Porém, para facilitar a aplicação, optou-se por transformar o relacionamento "leitura" em uma tabela por associação. Isso é aconselhável dado a cardinalidade entre as tabelas e o relacionamento (muitos para muitos). Portanto, transformou-se leitura em uma tabela cujos atributos são: id_delegacao (chave primária), CPF_administrador (chave estrangeira), CPF_montador (chave estrangeira), id_manual (chave estrangeira), finalizado. 
-
 ## Controladores (Controllers):
 
-&nbsp;&nbsp;&nbsp;&nbsp; Nesta aplicação, os usuários serão divididos em administradores e montadores. Os administradores têm acesso aos seguintes controladores:
-- Adicionar_manual: adiciona um manual à lista de manuais
-  - Parâmetros de entrada: nome, data, URL
+&nbsp;&nbsp;&nbsp;&nbsp; Nesta aplicação, os usuários serão divididos em <i> engineers </i>, <i> workers </i>, e <i> administrators </i>. Os administradores têm acesso aos seguintes controladores:
+- add_worker: adiciona um montador à lista de <code> workers </code>:
+  - Parâmetros de entrada: registrations, names, emails, birthdays, lines, actives
   - Parâmetros de saída: N/A
-  - Ações: Pedir ao model para adicionar um registro a tabela "manuais"
+  - Ações: Pedir ao model para adicionar um registro à tabela <code> workers </code>
+  - View: cria um <i> worker's interface </i> para o novo montador
+
+- see_workers: possibilita a visualização dos dados de um funcionário
+  - Parâmetros de entrada: registrations (<code> workers </code>)
+  - Parâmetros de saída:  names, emails, birthdays, lines, actives
+  - Ações: Pedir ao model para consultar os dados de um montador sob o registro registrations da tabela <code> workers </code>
+  - View: Abre uma aba com os dados do funcionário
+
+- delete_worker: exclui um montador da lista <code> workers </code>:
+  - Parâmetros de entrada: registrations
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para deletar um registro da tabela <code> workers </code>
+  - View: exclui o<i> worker's interface </i> do montador excluído
+
+&nbsp;&nbsp;&nbsp;&nbsp; Já os engenheiros têm acesso aos seguintes controllers:
+
+- add_manual: adiciona um manual à lista de manuais
+  - Parâmetros de entrada: names, categories, sub_categories1, sub_categories2, sub_categories3, sub_categories4, sub_categories5, actives
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para adicionar um registro a tabela <code> manuals </code>
   - View: altera o repositório de manuais, adicionando um manual
 
-- Atualizar_manual: atualiza um manual já criado
-  - Parâmetros de entrada: id_manual, data, URL, descricao
+- update_manual: atualiza um manual já criado
+  - Parâmetros de entrada: id (<code> manuals </code>), date, update_descriptions, actives
   - Parâmetros de saída: N/A
-  - Ações: Pedir ao model para alterar um registro da tabela "manuais"
-  - View: altera o repositório de manuais, atualizando-o; adiciona uma descrição da atualização aos funcionários que tinham o manual na sua lista de leitura e altera o dashboard do funcionário atualizando a leitura
+  - Ações: Pedir ao model para alterar um registro da tabela <code> manuals </code>
+  - View: altera o repositório de manuais, atualizando-o; adiciona uma descrição da atualização aos funcionários que tinham o manual na sua lista de leitura e altera o interface do funcionário atualizando a leitura
   
-- Delegar: delega uma leitura a um montador
-  - Parâmetros de entrada: CPF_administrador, CPF_montador, id_manual
+- delegate: delega uma leitura a um montador
+  - Parâmetros de entrada: registrations (<code> engineers </code>), registrations (<code> workers </code>), id (<code> manuals </code>)
   - Parâmetros de saída: N/A
-  - Ações: Pedir ao model para adicionar um registro a tabela "leitura"
-  - View: altera o dashboard do montador, adicionando a leitura; altera a dashboard do administrador com novas informações
+  - Ações: Pedir ao model para adicionar um registro a tabela <code> delegations </code>
+  - View: altera o interface do montador, adicionando a leitura; altera a dashboard do administrador com novas informações
 
-- Ver_funcionario: possibilita a visualização dos dados de um funcionário
-  - Parâmetros de entrada: CPF_montador
-  - Parâmetros de saída: nome_montador, equipe
-  - Ações: Pedir ao model para consultar os dados de um montador sob o registro CPF_montador
-  - View: Abre uma aba com os dados do funcionário 
+- add_file: adiciona um arquivo à lista de <code> files </code>
+  - Parâmetros de entrada: id (<code> manuals </code>), types, url
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para adicionar um registro a tabela <code> files </code>
+  - View: altera o repositório de manuais, adicionando um arquivo dentro do respectivo manual
+
+- delete_file: deleta um file já criado
+  - Parâmetros de entrada: id (<code> files </code>)
+  - Parâmetros de saída: N/A
+  - Ações: Pedir ao model para deletar um registro da tabela <code> files </code>
+  - View: altera o repositório de manuais, deletando um arquivo de dentro do respectivo manual
  
 &nbsp;&nbsp;&nbsp;&nbsp; Já os montadores têm acesso aos seguintes controllers:
-- Checar: dá um "check" no manual
-  - Parâmetros de entrada: id_delegação
+- already_read: dá um "check" no manual
+  - Parâmetros de entrada: id (<code> delegations </code>)
   - Parâmetros de saída: N/A
-  - Ações: Pedir ao model para alterar o registro sob id_delegacao da tabela leitura, setando o atributo finalizado como verdadeiro
-  - View: altera a dashboard do funcionário, "riscando" a tarefa da lista; altera o dashboard do administrador com novas informações
+  - Ações: Pedir ao model para alterar o registro sob id (<code> delegations </code>), setando o atributo <i> done </i> como verdadeiro.
+  - View: altera a interface do montador, "riscando" a tarefa da lista; altera o dashboard do administrador com novas informações
   
-- Ler: possibilita a leitura do manual
-  - Parâmetros de entrada: id_delegação, id_manual
-  - Parâmetros de saída: URL
-  - Ações: Pedir ao model para consultar a URL sob o registro id_manual
-  - View: N/A
+- acess: possibilita a leitura do manual
+  - Parâmetros de entrada: id (<code> delegations </code>), id (<code> manuals </code>)
+  - Parâmetros de saída: names, types, url (<code> files </code>)
+  - Ações: Pedir ao model para consultar os arquivos sob o registro id (<code> manuals </code>)
+  - View: Abre uma aba com os arquivos do manual
 
-&nbsp;&nbsp;&nbsp;&nbsp; Além disso, ambos os usuários terão acesso ao seguinte controller:
+&nbsp;&nbsp;&nbsp;&nbsp; Além disso, engenheiros e montadores terão acesso ao seguinte controller:
 - Logar: permite logar na aplicação
-  - Parâmetros de entrada: CPF e senha
+  - Parâmetros de entrada: emails e password 
   - Parâmetros de saída: N/A
-  - Ações: Pedir ao model para consultar o registro do CPF e checar a senha nas tabelas "montadores" e "administradores"
-  - View: atualiza a view, redirecionando o usuário a seu respectivo dashboard
+  - Ações: Pedir ao model para consultar o registro e <i>emails </i> e checar a senha nas tabelas <code> worker </code> e <code> engineers </code>
+  - View: atualiza a view, redirecionando o usuário a seu respectivo interface
 
 ## Views (Views):
 
 &nbsp;&nbsp;&nbsp;&nbsp; As views, ou seja, as interfaces as quais os usuários irão interagir são:
 - Login: permitirá o usuário logar na aplicação;
-- Dashboard do administrador: permitirá o administrador delegar manuais da lista de leitura de seus funcionários e ver o desempenho deles;
-- Dashboard do montador: permitirá o montador ver sua lista de leitura, checar as leituras já feitas e acessar os manuais;
-- Repositório de manuais: permitirá ao administrador adicionar e atualizar manuais
+- engineer's dashboard: permitirá o administrador delegar manuais da lista de leitura de seus funcionários e ver o desempenho deles;
+- worker's dashboard: permitirá o montador ver sua lista de leitura, checar as leituras já feitas e acessar os manuais;
+- repository: permitirá ao administrador adicionar e atualizar manuais
+- administrator's interface: permitirá ao administrador ver, adicionar, deletar e ver seus funcionários
 
 ## Infraestrutura:
 
